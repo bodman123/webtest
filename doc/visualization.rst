@@ -77,7 +77,7 @@ TumorDecon provides functions for creating the following plots, for digital cyto
 
 >>> td.pair_plot(results, save_as="pairplots.png")
 
-.. image:: ../_image/spairplots.png
+.. image:: ../_images/pairplots.png
   :width: 700px
   :height: 700px
 
