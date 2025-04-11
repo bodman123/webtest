@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post-processing &amp; Visualization &mdash; TumorDecon 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Running Digital Cytometry" href="digital-cytometry.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TumorDecon
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About TumorDecon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="data-input.html">Data Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sigmatrix.html">Signature Matrix Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digital-cytometry.html">Running Digital Cytometry</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Post-processing &amp; Visualization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cell_frequency_boxplot"><code class="docutils literal notranslate"><span class="pre">cell_frequency_boxplot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cell_frequency_barchart"><code class="docutils literal notranslate"><span class="pre">cell_frequency_barchart()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pair_plot"><code class="docutils literal notranslate"><span class="pre">pair_plot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hierarchical_clustering"><code class="docutils literal notranslate"><span class="pre">hierarchical_clustering()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#combine_celltypes"><code class="docutils literal notranslate"><span class="pre">combine_celltypes()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TumorDecon</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Post-processing &amp; Visualization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/visualization.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="post-processing-visualization">
+<h1>Post-processing &amp; Visualization<a class="headerlink" href="#post-processing-visualization" title="Link to this heading"></a></h1>
+<p>TumorDecon provides functions for creating the following plots, for digital cytometry performed with the LM22 signature matrix (or up-regulated genes for the 22 cell types in LM22):</p>
+<ul class="simple">
+<li><p>Box plots that show immune cells frequencies in descending order, so that users can easily recognize the most frequent immune cells within a group of samples/patients</p></li>
+<li><p>Bar charts that show the estimated percentage of each immune cell within a group of individual samples</p></li>
+<li><p>Pair plots that illustrate the correlation between different immune cells</p></li>
+<li><p>Cluster heat maps that group cells based on their euclidean distance</p></li>
+</ul>
+<p><strong>WARNING:</strong> The following 4 functions for plotting data currently only work for results generated with LM22 cell signatures, as the names of the cell types are hard-coded into the color plots. If you are working with a different group of cell types, you will need to define your own dictionary for combing cell types, with the <code class="docutils literal notranslate"><span class="pre">combine_celltypes()</span></code> function, and then drop any column names with non-LM22 cell types. An example of this is provided further down this page.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="cell_frequency_boxplot">
+<span class="sig-name descname"><span class="pre">cell_frequency_boxplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_cell_freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_as</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xylabel_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcParams</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'figure.figsize':</span> <span class="pre">(15,</span> <span class="pre">7)}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cell_frequency_boxplot" title="Link to this definition"></a></dt>
+<dd><p>Create boxplot of the output from the <code class="docutils literal notranslate"><span class="pre">tumor_deconvolve()</span></code> function for digital cytometry. Boxplot shows distribution of frequencies across all samples (patients), for each cell type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sample_cell_freq</strong> – Pandas DataFrame. Output file from the <code class="docutils literal notranslate"><span class="pre">tumor_deconvolve()</span></code> function for digital cytometry. Rows are patient IDs, columns are cell typs</p></li>
+<li><p><strong>title</strong> – String. Plot title</p></li>
+<li><p><strong>title_fontsize</strong> – Int. Font-size for title.</p></li>
+<li><p><strong>save_as</strong> – String. Filename to save plot to. File format is inferred from filename’s extension (‘.png’, ‘.pdf’, ‘.eps’, etc). If None, plot is not saved.</p></li>
+<li><p><strong>axes_style</strong> – Dictionary. Parameters to pass to <code class="docutils literal notranslate"><span class="pre">sns.set_style</span></code>, to customize plot. Valid dictionary keys can be found by running “sns.axes_style()” with no arguments</p></li>
+<li><p><strong>font_scale</strong> – Float. Scaling for plot elements such as tick labels</p></li>
+<li><p><strong>xylabel_fontsize</strong> – Int. Font-size for axis labels.</p></li>
+<li><p><strong>rcParams</strong> – Dictionary of parameters to pass as the rc argument to <code class="docutils literal notranslate"><span class="pre">sns.set</span></code> function. Valid dictionary keys can be found at <a class="reference external" href="https://matplotlib.org/stable/tutorials/introductory/customizing.html">https://matplotlib.org/stable/tutorials/introductory/customizing.html</a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib boxplot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Example 1: Boxplot.</strong> The data plotted in this example is all patients from the result of running Cibersort on the Colorectal Adenocarcinoma RNA Seq v2 data set from cBioPortal.org</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">td</span><span class="o">.</span><span class="n">cell_frequency_boxplot</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">save_as</span><span class="o">=</span><span class="s2">&quot;boxplots.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/boxplots.png"><img alt="_images/boxplots.png" src="_images/boxplots.png" style="width: 800px; height: 400px;" />
+</a>
+<dl class="py function">
+<dt class="sig sig-object py" id="cell_frequency_barchart">
+<span class="sig-name descname"><span class="pre">cell_frequency_barchart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_cell_freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_as</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xylabel_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rcParams</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'figure.figsize':</span> <span class="pre">(15,</span> <span class="pre">7)}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cell_frequency_barchart" title="Link to this definition"></a></dt>
+<dd><p>Create barcharts of the output from the <code class="docutils literal notranslate"><span class="pre">tumor_deconvolve()</span></code> function for digital cytometry. Plot shows the cell type distribution for each individual sample (patient) in the output file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sample_cell_freq</strong> – Pandas DataFrame. Output file from the <code class="docutils literal notranslate"><span class="pre">tumor_deconvolve()</span></code> function for digital cytometry. Rows are patient IDs, columns are cell typs</p></li>
+<li><p><strong>title</strong> – String. Plot title</p></li>
+<li><p><strong>title_fontsize</strong> – Int. Font-size for title.</p></li>
+<li><p><strong>save_as</strong> – String. Filename to save plot to. File format is inferred from filename’s extension (‘.png’, ‘.pdf’, ‘.eps’, etc). If None, plot is not saved.</p></li>
+<li><p><strong>axes_style</strong> – Dictionary. Parameters to pass to <code class="docutils literal notranslate"><span class="pre">sns.set_style</span></code>, to customize plot. Valid dictionary keys can be found by running “sns.axes_style()” with no arguments</p></li>
+<li><p><strong>font_scale</strong> – Float. Scaling for plot elements such as tick labels</p></li>
+<li><p><strong>xylabel_fontsize</strong> – Int. Font-size for axis labels.</p></li>
+<li><p><strong>rcParams</strong> – Dictionary of parameters to pass as the rc argument to <code class="docutils literal notranslate"><span class="pre">sns.set</span></code> function. Valid dictionary keys can be found at <a class="reference external" href="https://matplotlib.org/stable/tutorials/introductory/customizing.html">https://matplotlib.org/stable/tutorials/introductory/customizing.html</a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib stacked barchart</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Example 2: Barchart.</strong> The data plotted in this example is the first 12 patients from the result of running Cibersort on the Colorectal Adenocarcinoma RNA Seq v2 data set from cBioPortal.org</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">td</span><span class="o">.</span><span class="n">cell_frequency_barchart</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">save_as</span><span class="o">=</span><span class="s2">&quot;barcharts.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/barcharts.png"><img alt="_images/barcharts.png" src="_images/barcharts.png" style="width: 800px; height: 400px;" />
+</a>
+<dl class="py function">
+<dt class="sig sig-object py" id="pair_plot">
+<span class="sig-name descname"><span class="pre">pair_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_cell_freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_as</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(20,</span> <span class="pre">20)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pair_plot" title="Link to this definition"></a></dt>
+<dd><p>Create pair plots from the output of the <code class="docutils literal notranslate"><span class="pre">tumor_deconvolve()</span></code> function for digital cytometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sample_cell_freq</strong> – Pandas DataFrame. Output file from the <code class="docutils literal notranslate"><span class="pre">tumor_deconvolve()</span></code> function for digital cytometry. Rows are patient IDs, columns are cell typs</p></li>
+<li><p><strong>title</strong> – String. Plot title</p></li>
+<li><p><strong>title_fontsize</strong> – Int. Font-size for title.</p></li>
+<li><p><strong>save_as</strong> – String. Filename to save plot to. File format is inferred from filename’s extension (‘.png’, ‘.pdf’, ‘.eps’, etc). If None, plot is not saved.</p></li>
+<li><p><strong>font_scale</strong> – Float. Scaling for plot elements such as tick labels</p></li>
+<li><p><strong>figsize</strong> – Tuple. (x,y) size of the figure</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib pair plots</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Example 3: Pair Plots.</strong> The data plotted in this example is the first 12 patients from the result of running Cibersort on the Colorectal Adenocarcinoma RNA Seq v2 data set from cBioPortal.org</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">td</span><span class="o">.</span><span class="n">pair_plot</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">save_as</span><span class="o">=</span><span class="s2">&quot;pairplots.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/pairplots.png"><img alt="_images/pairplots.png" src="_images/pairplots.png" style="width: 700px; height: 700px;" />
+</a>
+<dl class="py function">
+<dt class="sig sig-object py" id="hierarchical_clustering">
+<span class="sig-name descname"><span class="pre">hierarchical_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_cell_freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_as</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(20,</span> <span class="pre">5)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hierarchical_clustering" title="Link to this definition"></a></dt>
+<dd><p>Create hierarchical clustered heatmap of the output from the <code class="docutils literal notranslate"><span class="pre">tumor_deconvolve()</span></code> function for digital cytometry. Plot clusters samples/patients by similar cellular profile distributions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sample_cell_freq</strong> – Pandas DataFrame. Output file from the <code class="docutils literal notranslate"><span class="pre">tumor_deconvolve()</span></code> function for digital cytometry. Rows are patient IDs, columns are cell typs</p></li>
+<li><p><strong>title</strong> – String. Plot title</p></li>
+<li><p><strong>title_fontsize</strong> – Int. Font-size for title.</p></li>
+<li><p><strong>save_as</strong> – String. Filename to save plot to. File format is inferred from filename’s extension (‘.png’, ‘.pdf’, ‘.eps’, etc). If None, plot is not saved.</p></li>
+<li><p><strong>axes_style</strong> – Dictionary. Parameters to pass to <code class="docutils literal notranslate"><span class="pre">sns.set_style</span></code>, to customize plot. Valid dictionary keys can be found by running “sns.axes_style()” with no arguments</p></li>
+<li><p><strong>figsize</strong> – Tuple. (x,y) size of the figure</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib hierarchical clustered heatmap</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Example 4: Cluster Maps.</strong> The data plotted in this example is all patients from the result of running Cibersort on the Colorectal Adenocarcinoma RNA Seq v2 data set from cBioPortal.org</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">td</span><span class="o">.</span><span class="n">hierarchical_clustering</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">save_as</span><span class="o">=</span><span class="s2">&quot;clustermaps.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/clustermaps.png"><img alt="_images/clustermaps.png" src="_images/clustermaps.png" style="width: 800px; height: 200px;" />
+</a>
+<dl class="py function">
+<dt class="sig sig-object py" id="combine_celltypes">
+<span class="sig-name descname"><span class="pre">combine_celltypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols_to_combine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#combine_celltypes" title="Link to this definition"></a></dt>
+<dd><p>Given a Pandas DataFrame (typically the output from the <code class="docutils literal notranslate"><span class="pre">tumor_deconvolve()</span></code> function) and a dictionary of column names (typically cell subtypes to combine into a single celltype), create a new DataFrame where the frequencies of related cell types are summed up and combined into a single column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – Pandas Dataframe. Output of td.tumor_deconvolve()</p></li>
+<li><p><strong>cols_to_combine</strong> – Dictionary. Keys are the desired names of any new cell type columns, values are an arary of current column names to combine under the key’s name (all unmentioned column names are left as they are). Default value is the dictionary for combining common cell types from LM22</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Pandas DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Example:</strong> Assume we have run Cibersort with LM22, and saved the output into the variable <code class="docutils literal notranslate"><span class="pre">results</span></code>. LM22 contains 3 types of macrophages (M0, M1, M2). If we are just interested in the distribution of ALL macrophages, we can combine these into one general column called “Macrophages”:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(results[[&#39;Macrophages M0&#39;, &#39;Macrophages M1&#39;, &#39;Macrophages M2&#39;]])
+Patient_ID       Macrophages M0  Macrophages M1  Macrophages M2
+TCGA-3L-AA1B-01        0.159410        0.035259        0.046693
+TCGA-4N-A93T-01        0.051245        0.000000        0.013803
+TCGA-4T-AA8H-01        0.000000        0.000000        0.019603
+TCGA-5M-AAT4-01        0.119760        0.000000        0.016929
+
+&gt;&gt;&gt; dict = {&#39;Macrophages&#39;:[&#39;Macrophages M0&#39;, &#39;Macrophages M1&#39;, &#39;Macrophages M2&#39;]}
+&gt;&gt;&gt; results2 = td.combine_celltypes(results, cols_to_combine=dict)
+&gt;&gt;&gt; print(results2)
+Patient_ID       B cells naive  B cells memory  Plasma cells  ...  Eosinophils  Neutrophils  Macrophages
+TCGA-3L-AA1B-01       0.076577        0.000000      0.019106  ...     0.000000          0.0     0.241362
+TCGA-4N-A93T-01       0.004291        0.054434      0.045281  ...     0.007008          0.0     0.065048
+TCGA-4T-AA8H-01       0.013573        0.000000      0.118549  ...     0.033994          0.0     0.019603
+TCGA-5M-AAT4-01       0.000000        0.066355      0.000000  ...     0.000000          0.0     0.136689
+</pre></div>
+</div>
+<p><strong>Example:</strong> Combining cell types for results generated from a custom signature matrix. Again assume we have run Cibersort with LM22, and saved the output into the variable <code class="docutils literal notranslate"><span class="pre">results</span></code>:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; dict = {&#39;CD8 T cells&#39;:[&#39;CD8_subtype_1&#39;, &#39;CD8_subtype_2&#39;],
+            &#39;CD4 T cells&#39;:[&#39;CD4_subtype_1&#39;, &#39;CD4_subtype_2&#39;],
+            &#39;B cells&#39;:[&#39;B_cell_subtype_1&#39;, &#39;B_cell_subtype_2&#39;],
+            &#39;Monocytes&#39;:[&#39;mono_subtype_1&#39;, &#39;mono_subtype_2&#39;],
+            &#39;NK cells&#39;:[&#39;NK_subtype_1&#39;, &#39;NK_subtype_2&#39;],
+            &#39;Neutrophils&#39;:[&#39;Neutrophils_subtype_1&#39;, &#39;Neutrophils_subtype_2&#39;],
+            &#39;Endothelial&#39;:[&#39;Endothelial_subtype_1&#39;, &#39;Endothelial_subtype_2&#39;],
+            &#39;Fibroblasts&#39;:[&#39;Fibroblast_subtype_1&#39;, &#39;Fibroblast_subtype_2&#39;],
+            }
+&gt;&gt;&gt; results2 = td.combine_celltypes(results, cols_to_combine=dict).drop(axis=1, columns=[&quot;Endothelial&quot;,&quot;Fibroblasts&quot;])
+&gt;&gt;&gt; td.cell_frequency_barchart(results2)
+</pre></div>
+</div>
+<p><strong>Example:</strong> If no argument is passed in for <code class="docutils literal notranslate"><span class="pre">cols_to_combine</span></code>, the function will attempt to use a sensible categorization based on the cell types present in the LM22 signature matrix:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="go">Index([&#39;B cells naive&#39;, &#39;B cells memory&#39;, &#39;Plasma cells&#39;, &#39;T cells CD8&#39;,</span>
+<span class="go">       &#39;T cells CD4 naive&#39;, &#39;T cells CD4 memory resting&#39;,</span>
+<span class="go">       &#39;T cells CD4 memory activated&#39;, &#39;T cells follicular helper&#39;,</span>
+<span class="go">       &#39;T cells regulatory (Tregs)&#39;, &#39;T cells gamma delta&#39;, &#39;NK cells resting&#39;,</span>
+<span class="go">       &#39;NK cells activated&#39;, &#39;Monocytes&#39;, &#39;Macrophages M0&#39;, &#39;Macrophages M1&#39;,</span>
+<span class="go">       &#39;Macrophages M2&#39;, &#39;Dendritic cells resting&#39;,</span>
+<span class="go">       &#39;Dendritic cells activated&#39;, &#39;Mast cells resting&#39;,</span>
+<span class="go">       &#39;Mast cells activated&#39;, &#39;Eosinophils&#39;, &#39;Neutrophils&#39;],</span>
+<span class="go">      dtype=&#39;object&#39;, name=&#39;Patient_ID&#39;)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results_simplified</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">combine_celltypes</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="go">WARNING: No dictionary defined for combining columns... Attempting to use default dict for LM22 signatures</span>
+<span class="go">&gt;&gt; print(results_simplified.columns)</span>
+<span class="go">Index([&#39;Plasma cells&#39;, &#39;T cells gamma delta&#39;, &#39;Monocytes&#39;, &#39;Eosinophils&#39;,</span>
+<span class="go">       &#39;Neutrophils&#39;, &#39;B cells&#39;, &#39;CD4 T cells&#39;, &#39;CD8 T cells&#39;, &#39;NK cells&#39;,</span>
+<span class="go">       &#39;Macrophages&#39;, &#39;Mast cells&#39;, &#39;Dendritic cells&#39;],</span>
+<span class="go">      dtype=&#39;object&#39;, name=&#39;Patient_ID&#39;)</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="digital-cytometry.html" class="btn btn-neutral float-left" title="Running Digital Cytometry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright workshop participant.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Running Digital Cytometry &mdash; TumorDecon 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Post-processing &amp; Visualization" href="visualization.html" />
+    <link rel="prev" title="Signature Matrix Creation" href="sigmatrix.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TumorDecon
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About TumorDecon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="data-input.html">Data Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sigmatrix.html">Signature Matrix Creation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running Digital Cytometry</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tumor_deconvolve"><code class="docutils literal notranslate"><span class="pre">tumor_deconvolve()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cibersort">Cibersort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deconrnaseq">DeconRNASeq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ssgsea">ssGSEA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#singscore">SingScore</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="visualization.html">Post-processing &amp; Visualization</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TumorDecon</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Running Digital Cytometry</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/digital-cytometry.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="running-digital-cytometry">
+<h1>Running Digital Cytometry<a class="headerlink" href="#running-digital-cytometry" title="Link to this heading"></a></h1>
+<p>All digital cytometry in TumorDecon is done with the <code class="docutils literal notranslate"><span class="pre">tumor_deconvolve()</span></code> function:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="tumor_deconvolve">
+<span class="sig-name descname"><span class="pre">tumor_deconvolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mixture_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patient_IDs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ALL'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">up_genes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">down_genes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tumor_deconvolve" title="Link to this definition"></a></dt>
+<dd><p>Given a digital cytometry method, cell signature, and a mixture (RNA Sequence) dataset, return the estimated frequencies/ranks of each cell type in each patient.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mixture_data</strong> – Pandas DataFrame of rna gene expression data. Rows are genes (indexed by ‘Hugo_Symbol’) and columns are patients</p></li>
+<li><p><strong>method</strong> – Method for tumor deconvolution. Must be either ‘CIBERSORT’, ‘DeconRNASeq’, ‘ssGSEA’, or ‘SingScore’</p></li>
+<li><p><strong>patient_IDs</strong> – Either a list of patient IDs to run digital cytometry on, or the string ‘ALL’ (to run for all patients). The default is ‘ALL’</p></li>
+<li><p><strong>sig_matrix</strong> – Pandas DataFrame of signature gene expression values for given cell types. Rows are genes (indexed by ‘Hugo_Symbol’) and columns are cell types <strong>* Required for ‘CIBERSORT’ and ‘DeconRNASeq’ methods *</strong> (ignored for ‘ssGSEA’ and ‘SingScore’ methods)</p></li>
+<li><p><strong>up_genes</strong> – Dictionary. Keys are cell types, vaues are a list of up-regulated genes (given by Hugo Symbol) for that cell type <strong>* Required for ‘ssGSEA’ and ‘SingScore’ methods *</strong> (ignored for ‘CIBERSORT’ and ‘DeconRNASeq’ methods)</p></li>
+<li><p><strong>down_genes</strong> – Dictionary. Keys are cell types, vaues are a list of down-regulated genes (given by Hugo Symbol) for that cell type <strong>* Optional for ‘SingScore’ method *</strong> (ignored for ‘CIBERSORT’, ‘DeconRNASeq’, and ‘ssGSEA’ methods)</p></li>
+<li><p><strong>args</strong> – Dictionary. Additional arguments to pass on to the given method. For a list of valid arguments for each method, see the subsections below.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Pandas DataFrame. Frequencies/scores for each specified patient and cell type in the signature matrix, as solved for using the specified method</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Example 1:</strong> Run digital cytometry on all patients in the RNA mixture data, using the cibersort method, and save the output to a csv file.</p>
+<p>Since CiberSort is a linear method, we need to pass in a signature matrix for the <code class="docutils literal notranslate"><span class="pre">cell_signature</span></code> argument, in the form of a Pandas DataFrame. Using the <code class="docutils literal notranslate"><span class="pre">read_sig_file()</span></code> function with no argument will read in LM22 by default.</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; rna = td.read_rna_file(&#39;uvm_tcga_pan_can_atlas_2018/data_RNA_Seq_v2_expression_median.txt&#39;)
+&gt;&gt;&gt; sig = td.read_sig_file()
+&gt;&gt;&gt; freqs = td.tumor_deconvolve(rna, &#39;cibersort&#39;, sig_matrix=sig)
+Running CiberSort...
+CiberSort has completed!
+&gt;&gt;&gt; freqs.to_csv(&quot;cibersort_results.csv&quot;, index_label=&#39;Patient_ID&#39;)
+</pre></div>
+</div>
+<p><strong>Example 2:</strong> Run digital cytometry on just a subset of patients in the RNA mixture data, using the ssGSEA method. Then save output to a cvs file:</p>
+<p>Since ssGSEA is a rank-based method, we need to pass in a list for the <code class="docutils literal notranslate"><span class="pre">up_genes</span></code> argument. Using the <code class="docutils literal notranslate"><span class="pre">read_geneset()</span></code> function with no argument will read in the default up-regulated gene set (derived from single-cell reference profiles of LM22, in Le et al. (2020)). We also define the list of patients we want to calculate scores for in a variable named <code class="docutils literal notranslate"><span class="pre">patient_subset</span></code>:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; rna = td.read_rna_file(&#39;uvm_tcga_pan_can_atlas_2018/data_RNA_Seq_v2_expression_median.txt&#39;)
+&gt;&gt;&gt; up_reg_genes = td.read_geneset()
+&gt;&gt;&gt; patient_subset = [&#39;TCGA-RZ-AB0B-01&#39;, &#39;TCGA-V3-A9ZX-01&#39;, &#39;TCGA-V3-A9ZY-01&#39;, &#39;TCGA-V4-A9E5-01&#39;, \
+                      &#39;TCGA-V4-A9E7-01&#39;, &#39;TCGA-V4-A9E8-01&#39;, &#39;TCGA-V4-A9E9-01&#39;, &#39;TCGA-V4-A9EA-01&#39;, \
+                      &#39;TCGA-V4-A9EC-01&#39;, &#39;TCGA-V4-A9ED-01&#39;,   &#39;TCGA-V4-A9EE-01&#39;, &#39;TCGA-V4-A9EF-01&#39;]
+&gt;&gt;&gt; ssgsea_scores = td.tumor_deconvolve(rna, &#39;ssGSEA&#39;,  patient_IDs=patient_subset, up_genes=up_reg_genes, args={&#39;print_progress&#39;:True})
+Running ssGSEA...
+TCGA-RZ-AB0B-01
+TCGA-V3-A9ZX-01
+TCGA-V3-A9ZY-01
+TCGA-V4-A9E5-01
+TCGA-V4-A9E7-01
+TCGA-V4-A9E8-01
+TCGA-V4-A9E9-01
+TCGA-V4-A9EA-01
+TCGA-V4-A9EC-01
+TCGA-V4-A9ED-01
+TCGA-V4-A9EE-01
+TCGA-V4-A9EF-01
+ssGSEA has completed!
+&gt;&gt;&gt; ssgsea_scores.to_csv(&quot;ssgsea_results.csv&quot;, index_label=&#39;Patient_ID&#39;)
+</pre></div>
+</div>
+<section id="cibersort">
+<h2>Cibersort<a class="headerlink" href="#cibersort" title="Link to this heading"></a></h2>
+<p>The Cibersort method uses NuSVR from sklearn to solve for the cell type frequencies. Since Cibersort is a linear method, the <code class="docutils literal notranslate"><span class="pre">sig_matrix</span></code> argument is required. If a value for <code class="docutils literal notranslate"><span class="pre">up_genes</span></code> is also declared, it will be ignored. When using this method, the following additional arguments may be passed to the function via the <code class="docutils literal notranslate"><span class="pre">args</span></code> Dictionary:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>print_progress</strong>: Boolean, whether to print patient ID as cibersort iterates through. Default is False</p></li>
+<li><p><strong>scaling</strong>: String, must be either ‘None’, ‘zscore’, or ‘minmax’. Determines how to scale the mixture data and signature matrix before applying CIBERSORT. Default is MinMax scaling</p></li>
+<li><p><strong>scaling_axis</strong>: 0 or 1. Whether to scale mixture data and signature matrix by normalizing each column (patient/celltype) individually (scaling_axis=0) or each row (gene) individually (scaling_axis=1). Default is 0.</p></li>
+<li><p><strong>nu</strong>: see <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.NuSVR.html">sklearn’s documentation for NuSVR</a>. If nu=’best’ (default), cibersort will use the nu in the set {0.25, 0.5, 0.75} that minimizes root mean square b/w data and prediction. If nu a float, will compute cibersort for that specific nu</p></li>
+<li><p>C: see <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.NuSVR.html">sklearn’s documentation for NuSVR</a></p></li>
+<li><p>kernel:: see <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.NuSVR.html">sklearn’s documentation for NuSVR</a></p></li>
+<li><p>shrinking: see <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.NuSVR.html">sklearn’s documentation for NuSVR</a></p></li>
+</ul>
+</div></blockquote>
+<p>The output for this method is a Pandas DataFrame (num_celltypes x num_patients) that contains cell type frequencies for each patient in the given ‘patient_IDs’ list. Rows are indexed by cell type, column headings are patient IDs</p>
+<p><strong>Example 3:</strong> Run CiberSort on all patients in the RNA mixture data, using the <a class="reference internal" href="sigmatrix.html#custom-signature"><span class="std std-ref">custom signature matrix</span></a> “kmeans_signature_matrix_qval.txt”, and specifying an explicit scaling and value of <code class="docutils literal notranslate"><span class="pre">nu</span></code>.</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; rna = td.read_rna_file(&#39;uvm_tcga_pan_can_atlas_2018/data_mrna_seq_v2_rsem.txt&#39;)
+&gt;&gt;&gt; sig = td.read_sig_file(&quot;kmeans_signature_matrix_qval.txt&quot;, geneID=&#39;Ensembl_Gene_ID&#39;)
+&gt;&gt;&gt; freqs = td.tumor_deconvolve(rna, &#39;cibersort&#39;, sig_matrix=sig, args={&#39;nu&#39;:0.5, &#39;scaling&#39;:&#39;minmax&#39;})
+Running CiberSort...
+CiberSort has completed!
+&gt;&gt;&gt;print(freqs)
+Patient_ID       CD8_subtype_1  CD8_subtype_2  CD4_subtype_1          ...            Fibroblast_subtype_2  Neutrophils_subtype_1  Neutrophils_subtype_2
+TCGA-RZ-AB0B-01       0.000000       0.340832       0.179790          ...                        0.012600               0.000000               0.000436
+TCGA-V3-A9ZX-01       0.028684       0.146691       0.152585          ...                        0.010037               0.000000               0.006936
+TCGA-V3-A9ZY-01       0.000000       0.488760       0.108457          ...                        0.001606               0.000000               0.000814
+TCGA-V4-A9E5-01       0.000000       0.399474       0.190793          ...                        0.003778               0.000000               0.000999
+TCGA-V4-A9E7-01       0.000000       0.455365       0.217109          ...                        0.000000               0.000228               0.000000
+<span class="cp">...                        ...            ...            ...          ...                              ...                   ...                    ...                    ...</span>
+TCGA-YZ-A980-01       0.009343       0.284902       0.178078          ...                        0.015250               0.000000               0.000000
+TCGA-YZ-A982-01       0.000000       0.269736       0.150146          ...                        0.000000               0.000000               0.006947
+TCGA-YZ-A983-01       0.000000       0.592702       0.109028          ...                        0.000000               0.000000               0.002387
+TCGA-YZ-A984-01       0.000000       0.353790       0.140766          ...                        0.001984               0.011312               0.000000
+TCGA-YZ-A985-01       0.000000       0.408330       0.153663          ...                        0.000720               0.000000               0.003510
+
+[80 rows x 16 columns]
+</pre></div>
+</div>
+</section>
+<section id="deconrnaseq">
+<h2>DeconRNASeq<a class="headerlink" href="#deconrnaseq" title="Link to this heading"></a></h2>
+<p>The DeconRNASeq method uses the Optimize method from SciPy to solve for the cell type frequencies. Since DeconRNASeq is a linear method, the <code class="docutils literal notranslate"><span class="pre">sig_matrix</span></code> argument is required. If a value for <code class="docutils literal notranslate"><span class="pre">up_genes</span></code> is also declared, it will be ignored. When using this method, the following additional arguments may be passed to the function via the <code class="docutils literal notranslate"><span class="pre">args</span></code> Dictionary:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>check_sig</strong>: Boolean. Whether or not to check the condition number of the signature matrix before solving</p></li>
+<li><p><strong>scaling</strong>: String. Must be either ‘None’, ‘zscore’, or ‘minmax’. Determines how to scale the signature matrix and mixture data before solving. Default is MinMax scaling.</p></li>
+<li><p><strong>scaling_axis</strong>: 0 or 1. Whether to scale mixture data and signature matrix by normalizing each column (celltype/patient) separately (scaling_axis=0) or each row (gene) separately (scaling_axis=1). Default is 0.</p></li>
+<li><dl class="simple">
+<dt><strong>formulation</strong>: String. Must be either ‘qp’, ‘ridge’, or ‘lasso’. Determines how to formulate the optimization problem:</dt><dd><ul>
+<li><p><strong>qp</strong>: solve a QP (quadratic programming) problem min_x||Ax-b||^2 with strict condition x.sum()=1, xi&gt;=0</p></li>
+<li><p><strong>ridge</strong>: solve a ridge regression problem min_x{||Ax-b||^2 + ||x||^2} with condition xi&gt;=0</p></li>
+<li><p><strong>lasso</strong>: solve a lasso regression problem min_x{||Ax-b||^2 + Sum_i{<a href="#id4"><span class="problematic" id="id5">|x_i|</span></a>} with condition xi&gt;=0</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><strong>reg_constant</strong>: Float. Regularization constant for lasso/ridge regression. Ignored if formulation set to ‘qp’</p></li>
+<li><p><strong>print_progress</strong>: Boolean. Whether or not to print the solver (scipy.optimize) results</p></li>
+</ul>
+</div></blockquote>
+<p>The output for this method is a Pandas DataFrame (num_celltypes x num_patients) that contains cell type frequencies for each patient in the given ‘patient_IDs’ list. Rows are indexed by cell type, column headings are patient IDs</p>
+<p><strong>Example 4:</strong> Run DeconRNASeq on all patients in the RNA mixture data, using the default LM22 signature matrix. To evaluate our confidence in our solution, we explicitly check the condition number of the signature matrix, and print the solver results:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; rna = td.read_rna_file(&#39;uvm_tcga_pan_can_atlas_2018/data_mrna_seq_v2_rsem.txt&#39;)
+&gt;&gt;&gt; sig = td.read_sig_file()
+&gt;&gt;&gt; freqs = td.tumor_deconvolve(rna, &#39;deconRNAseq&#39;, sig_matrix=sig, args={&#39;check_sig&#39;:True, &#39;print_progress&#39;:True})
+Condition number of signature matrix = 12.43933600367927
+Running DeconRNASeq...
+
+TCGA-RZ-AB0B-01
+   fun: 1.768742658372559
+   jac: array([0.22816905, 0.2551588 , 0.20533609, 0.34062135, 0.22060739,
+     0.20532408, 0.20530543, 0.20500609, 0.22956975, 0.32579079,
+     0.21855029, 0.20513448, 0.20529102, 0.20514449, 0.2050613 ,
+     0.32388473, 0.20581529, 0.20504086, 0.20532118, 0.2950649 ,
+     0.20484114, 0.30095159])
+message: &#39;Optimization terminated successfully.&#39;
+   nfev: 243
+    nit: 10
+   njev: 10
+ status: 0
+success: True
+     x: array([4.79865365e-18, 0.00000000e+00, 3.24670795e-01, 4.81395017e-17,
+     3.27398518e-17, 1.61659557e-02, 5.85440056e-02, 5.81593582e-02,
+     9.57879942e-18, 4.25466532e-17, 4.63744135e-18, 3.15186488e-02,
+     7.94907975e-02, 2.76273695e-01, 7.08312745e-04, 7.96339326e-17,
+     0.00000000e+00, 6.24736273e-02, 8.95223995e-02, 1.22308564e-17,
+     2.47240499e-03, 1.70412859e-17])
+
+
+TCGA-V3-A9ZX-01
+  fun: 2.3380210562625794
+  jac: array([0.08302617, 0.07165793, 0.07166326, 0.09838021, 0.11366048,
+    0.07198009, 0.07167557, 0.07217818, 0.07183281, 0.09873474,
+    0.07061729, 0.08603653, 0.08129218, 0.07147855, 0.07210144,
+    0.07260156, 0.07217726, 0.07224679, 0.07091093, 0.16353929,
+    0.12585488, 0.20857742])
+message: &#39;Optimization terminated successfully.&#39;
+   nfev: 242
+    nit: 10
+   njev: 10
+ status: 0
+success: True
+    x: array([0.00000000e+00, 5.13881657e-03, 2.38885934e-01, 0.00000000e+00,
+    0.00000000e+00, 2.61113903e-02, 1.20781286e-02, 1.09609396e-02,
+    6.60321613e-02, 1.75537745e-17, 2.11868602e-02, 6.54156460e-18,
+    4.40696071e-18, 3.96846445e-01, 5.41708212e-02, 0.00000000e+00,
+    1.21155050e-01, 6.53890726e-03, 4.08945470e-02, 1.69936550e-17,
+    1.54190292e-18, 2.90338837e-17])
+
+[ ... output truncated for space ... ]
+
+DeconRNASeq has completed!
+
+&gt;&gt;&gt; print(freqs)
+Patient_ID       B cells naive  B cells memory  Plasma cells   T cells CD8      ...       Mast cells resting  Mast cells activated   Eosinophils   Neutrophils
+TCGA-RZ-AB0B-01   4.798654e-18    0.000000e+00      0.324671  4.813950e-17      ...             8.952240e-02          1.223086e-17  2.472405e-03  1.704129e-17
+TCGA-V3-A9ZX-01   0.000000e+00    5.138817e-03      0.238886  0.000000e+00      ...             4.089455e-02          1.699366e-17  1.541903e-18  2.903388e-17
+TCGA-V3-A9ZY-01   0.000000e+00    3.518049e-17      0.283670  0.000000e+00      ...             6.147303e-02          0.000000e+00  2.351062e-18  0.000000e+00
+TCGA-V4-A9E5-01   0.000000e+00    0.000000e+00      0.258718  2.794810e-17      ...             7.591108e-02          0.000000e+00  3.969250e-18  1.350584e-17
+TCGA-V4-A9E7-01   1.937510e-17    1.667966e-03      0.258230  0.000000e+00      ...             6.860309e-02          7.706740e-18  4.057952e-18  2.948868e-17
+<span class="cp">...                        ...             ...           ...           ...      ...                      ...                   ...           ...           ...</span>
+TCGA-YZ-A980-01   2.581715e-17    0.000000e+00      0.272212  5.280067e-18      ...             6.036439e-02          0.000000e+00  0.000000e+00  0.000000e+00
+TCGA-YZ-A982-01   1.078221e-17    3.272811e-18      0.283501  6.271637e-17      ...             8.536993e-02          0.000000e+00  0.000000e+00  4.242467e-17
+TCGA-YZ-A983-01   4.291653e-03    0.000000e+00      0.320183  0.000000e+00      ...             8.946226e-02          5.102526e-18  9.125998e-03  0.000000e+00
+TCGA-YZ-A984-01   1.928266e-17    2.356858e-03      0.258814  5.212959e-18      ...             6.631310e-02          3.597047e-17  7.543348e-18  0.000000e+00
+TCGA-YZ-A985-01   0.000000e+00    1.442125e-02      0.309380  9.133074e-17      ...             5.799046e-02          2.838456e-17  0.000000e+00  0.000000e+00
+
+[80 rows x 22 columns]
+</pre></div>
+</div>
+</section>
+<section id="ssgsea">
+<h2>ssGSEA<a class="headerlink" href="#ssgsea" title="Link to this heading"></a></h2>
+<p>Since ssGSEA is a rank-based method, the <code class="docutils literal notranslate"><span class="pre">up_genes</span></code> argument is required. If a value for <code class="docutils literal notranslate"><span class="pre">sig_matrix</span></code> is also declared, it will be ignored. When using this method, the following additional arguments may be passed to the function via the <code class="docutils literal notranslate"><span class="pre">args</span></code> Dictionary:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>print_progress</strong>: Boolean. Whether to print patient ID as ssGSEA iterates through. Default is False</p></li>
+<li><p><strong>alpha</strong>: Float. Weight used in ssGSEA method. Default is 1.0</p></li>
+<li><p><strong>ties_method</strong>: Describes how to treat ties in rankings. See pandas.DataFrame.rank() for list of valid options.</p></li>
+<li><p><strong>norm</strong>: Boolean. Whether to normalize enrichment scores by using the entire data set, as indicated by Barbie et al., 2009, online methods, pg. 2. Default is False.</p></li>
+</ul>
+</div></blockquote>
+<p>The output for this method is a Pandas DataFrame (num_celltypes x num_patients) that contains ssGSEA enrichment scores for each cell type declared in ‘up_genes’ dictionary, for each patient in the given ‘patient_IDs’ list. Rows are indexed by cell type, column headings are patient IDs</p>
+<p><strong>Example 5:</strong> Run ssGSEA on 5 individual patients in the RNA mixture data, using the default gene set derived from LM22 and alpha = 0.5, and then normalize the results</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; rna = td.read_rna_file(&#39;uvm_tcga_pan_can_atlas_2018/data_mrna_seq_v2_rsem.txt&#39;)
+&gt;&gt;&gt; up_reg_genes = td.read_geneset()
+&gt;&gt;&gt; patient_subset = [&#39;TCGA-RZ-AB0B-01&#39;, &#39;TCGA-V3-A9ZX-01&#39;, &#39;TCGA-V3-A9ZY-01&#39;, &#39;TCGA-V4-A9E5-01&#39;, &#39;TCGA-V4-A9E7-01&#39;, &#39;TCGA-V4-A9E8-01&#39;, &#39;TCGA-V4-A9E9-01&#39;, &#39;TCGA-V4-A9EA-01&#39;]
+&gt;&gt;&gt; ssgsea_scores = td.tumor_deconvolve(rna, &#39;ssGSEA&#39;,  patient_IDs=patient_subset, up_genes=up_reg_genes, args={&#39;alpha&#39;:0.5, &#39;norm&#39;:True})
+Running ssGSEA...
+ssGSEA has completed!
+&gt;&gt;&gt;&gt; print(ssgsea_scores)
+Patient_ID       B cells naive  B cells memory  Plasma cells  T cells CD8     ...       Mast cells resting  Mast cells activated  Eosinophils  Neutrophils
+TCGA-RZ-AB0B-01       0.327240        0.249076      0.986881     0.326747     ...                 0.735592              0.490964     0.558033     0.435243
+TCGA-V3-A9ZX-01       0.276838        0.220086      0.982511     0.405832     ...                 0.681473              0.527347     0.565607     0.481490
+TCGA-V3-A9ZY-01       0.291156        0.239979      0.898351     0.489769     ...                 0.646602              0.451504     0.532254     0.477449
+TCGA-V4-A9E5-01       0.279829        0.238470      0.888191     0.521628     ...                 0.619921              0.447962     0.506716     0.467605
+TCGA-V4-A9E7-01       0.318732        0.155308      0.946145     0.452830     ...                 0.671831              0.468233     0.485592     0.453880
+TCGA-V4-A9E8-01       0.263715        0.196422      0.955722     0.547990     ...                 0.608545              0.456964     0.473649     0.514065
+TCGA-V4-A9E9-01       0.316531        0.217946      0.912949     0.542386     ...                 0.585311              0.455807     0.461873     0.447807
+TCGA-V4-A9EA-01       0.382925        0.229779      0.855658     0.572038     ...                 0.583329              0.438876     0.458896     0.458504
+
+[8 rows x 22 columns]
+</pre></div>
+</div>
+</section>
+<section id="singscore">
+<h2>SingScore<a class="headerlink" href="#singscore" title="Link to this heading"></a></h2>
+<p>Since SingScore is a rank-based method, the <code class="docutils literal notranslate"><span class="pre">up_genes</span></code> argument is required. If a value for <code class="docutils literal notranslate"><span class="pre">sig_matrix</span></code> is also declared, it will be ignored.</p>
+<p>If both the <code class="docutils literal notranslate"><span class="pre">down_genes</span></code> and <code class="docutils literal notranslate"><span class="pre">up_genes</span></code> arguments are defined, the <code class="docutils literal notranslate"><span class="pre">tumor_deconvolve()</span></code> function will run PySingScore’s implementation of bidirectional singscore. If only <code class="docutils literal notranslate"><span class="pre">up_genes</span></code> is defined, it will run PySingScore’s implementation of unidirectional singscore.</p>
+<p>The output for this method is a Pandas DataFrame (num_celltypes x num_patients) that contains SingScore scores for each cell type declared in ‘up_genes’ dictionary, for each patient in the given ‘patient_IDs’ list. Rows are indexed by cell type, column headings are patient IDs</p>
+<p><strong>Example 6:</strong> Run both unidirectional and bidirectional SingScore using the default Gene Sets. To derive a down-regulated gene set, we use the <code class="docutils literal notranslate"><span class="pre">td.find_up_down_genes_from_sig()</span></code> function (see <a class="reference internal" href="data-input.html#creating-gene-set"><span class="std std-ref">Creating Gene Sets</span></a>). We will create this gene set from the LM6 signature matrix, which is included in the package:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; rna = td.read_rna_file(&#39;uvm_tcga_pan_can_atlas_2018/data_mrna_seq_v2_rsem.txt&#39;)
+&gt;&gt;&gt; LM6 = td.read_sig_file(&#39;LM6.txt&#39;)
+&gt;&gt;&gt; up_genes_LM6, down_genes_LM6 = td.find_up_down_genes_from_sig(LM6, down_cutoff=0.4, up_cutoff=4.0)
+
+&gt;&gt;&gt; singscore_unidirectional = td.tumor_deconvolve(rna, &#39;singscore&#39;, up_genes=up_genes_LM6)
+Running SingScore...
+SingScore has completed!
+&gt;&gt;&gt; print(singscore_unidirectional)
+                  B cells  CD8 T cells  CD4 T cells  NK cells  Monocytes  Neutrophils
+Patient_ID
+TCGA-RZ-AB0B-01 -0.040879    -0.042245    -0.015696 -0.068842  -0.004216    -0.067957
+TCGA-V3-A9ZX-01 -0.016157     0.006778     0.025657 -0.024595   0.040129    -0.035982
+TCGA-V3-A9ZY-01 -0.047875    -0.054082    -0.005818 -0.085125   0.007932    -0.061282
+TCGA-V4-A9E5-01 -0.053520    -0.070746    -0.033882 -0.102350   0.001286    -0.067848
+TCGA-V4-A9E7-01 -0.077335    -0.070958    -0.043286 -0.098458  -0.035024    -0.090904
+<span class="cp">...                   ...          ...          ...       ...        ...          ...</span>
+TCGA-YZ-A980-01 -0.027205    -0.025515     0.020872 -0.041668   0.000913    -0.065293
+TCGA-YZ-A982-01 -0.061571    -0.051486    -0.021256 -0.073456   0.018704    -0.058435
+TCGA-YZ-A983-01 -0.058798    -0.065018    -0.035282 -0.082523  -0.006307    -0.065574
+TCGA-YZ-A984-01 -0.068884    -0.046064    -0.007893 -0.079870  -0.008476    -0.075183
+TCGA-YZ-A985-01 -0.072839    -0.054141    -0.018756 -0.089481  -0.011167    -0.081205
+
+[80 rows x 6 columns]
+
+&gt;&gt;&gt; singscore_bidirectional = td.tumor_deconvolve(rna, &#39;singscore&#39;, up_genes=up_genes_LM6, down_genes=down_genes_LM6)
+Running SingScore...
+SingScore has completed!
+&gt;&gt;&gt; print(singscore_bidirectional)
+                  B cells  CD8 T cells  CD4 T cells  NK cells  Monocytes  Neutrophils
+Patient_ID
+TCGA-RZ-AB0B-01  0.478281     0.489102     0.489548  0.485272   0.489559     0.484873
+TCGA-V3-A9ZX-01  0.488396     0.496139     0.495398  0.494335   0.491098     0.485794
+TCGA-V3-A9ZY-01  0.463718     0.468867     0.474098  0.466825   0.482648     0.472018
+TCGA-V4-A9E5-01  0.459967     0.460788     0.466172  0.457230   0.478536     0.463606
+TCGA-V4-A9E7-01  0.457835     0.465507     0.465669  0.463028   0.479901     0.471592
+<span class="cp">...                   ...          ...          ...       ...        ...          ...</span>
+TCGA-YZ-A980-01  0.485412     0.491924     0.493563  0.491461   0.495019     0.491583
+TCGA-YZ-A982-01  0.455890     0.470598     0.471025  0.475132   0.484155     0.469897
+TCGA-YZ-A983-01  0.470838     0.479412     0.478998  0.482687   0.488062     0.481390
+TCGA-YZ-A984-01  0.460155     0.471427     0.473025  0.463111   0.480844     0.466355
+TCGA-YZ-A985-01  0.443784     0.463111     0.467764  0.459697   0.470359     0.456920
+
+[80 rows x 6 columns]
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sigmatrix.html" class="btn btn-neutral float-left" title="Signature Matrix Creation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="visualization.html" class="btn btn-neutral float-right" title="Post-processing &amp; Visualization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright workshop participant.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
