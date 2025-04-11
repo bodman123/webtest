@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Signature Matrix Creation &mdash; TumorDecon  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Running Digital Cytometry" href="digital-cytometry.html" />
+    <link rel="prev" title="Data Inputs" href="data-input.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> TumorDecon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About TumorDecon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Usage:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="data-input.html">Data Inputs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Signature Matrix Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digital-cytometry.html">Running Digital Cytometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualization.html">Post-processing &amp; Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TumorDecon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Signature Matrix Creation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/sigmatrix.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="signature-matrix-creation">
+<span id="custom-signature"></span><h1>Signature Matrix Creation<a class="headerlink" href="#signature-matrix-creation" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="batch_correct_datasets">
+<code class="descname">batch_correct_datasets</code><span class="sig-paren">(</span><em>data_loc</em>, <em>cell_file_dict</em>, <em>outfile=&quot;batch_corrected_datasets.txt&quot;</em><span class="sig-paren">)</span><a class="headerlink" href="#batch_correct_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs batch correction on raw data files, and saves the combined output to a single CSV file. All files must be stored in the same folder.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data_loc</strong> – String. Path to folder that holds all data files</li>
+<li><strong>cell_file_dict</strong> – Dictionary. Keys = Cell Types, Values = paths to all raw files containing data for the given cell type</li>
+<li><strong>outfile</strong> – String. Name to save the batch corrected datasets file under. Default is “batch_corrected_datasets.txt”</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None. Batch corrected datasets are written to a text file</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="create_signature_matrix">
+<code class="descname">create_signature_matrix</code><span class="sig-paren">(</span><em>infile</em>, <em>cell_types</em>, <em>clustered=False</em>, <em>max_clusters=10</em>, <em>intermfile=None</em>, <em>outfile=&quot;kmeans_signature_matrix_qval.txt&quot;</em><span class="sig-paren">)</span><a class="headerlink" href="#create_signature_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a batch corrected dataset as input (such as one created with <code class="docutils literal notranslate"><span class="pre">batch_correct_datasets()</span></code>), runs clustering on each cell-type (using the silhouette method), does differential expression analysis to get the genes that are significantly expressed among each cluster (using adjusted p value), and outputs a signature matrix to a csv file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>infile</strong> – String. Path to text file containing the batch corrected datasets</li>
+<li><strong>cell_types</strong> – List of cell types (strings) to include in signature matrix</li>
+<li><strong>clustered</strong> – Boolean. Whether or not the infile is pre-clustered</li>
+<li><strong>max_clusters</strong> – Integer. Maximum value of K to try for k-means clustering. Ignored if <code class="docutils literal notranslate"><span class="pre">clustered=True</span></code></li>
+<li><strong>intermfile</strong> – String. Where to save intermediate step of clustered batch corrected datasets. Ignored if <code class="docutils literal notranslate"><span class="pre">clustered=True</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">infile+&quot;_clustered.txt&quot;</span></code></li>
+<li><strong>outfile</strong> – String. Name to save the finished signature matrix file under. Default is “kmeans_signature_matrix_qval.txt”</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None. Signature matrix and (if <code class="docutils literal notranslate"><span class="pre">clustered=False</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">intermfile</span> <span class="pre">!=</span> <span class="pre">None</span></code>) text file of clustered batch corrected datasets are written to csv files</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p><strong>Example:</strong> Create a custom signature matrix from raw data files. The data used in this example are single cell profiles from the Gene Expression Omnibus (GEO) repository. They are available to download on the NCBI website, as well as from our GitHub page, at: <a class="reference external" href="https://github.com/ShahriyariLab/TumorDecon/tree/master/TumorDecon/data/sig_matrix_tutorial">https://github.com/ShahriyariLab/TumorDecon/tree/master/TumorDecon/data/sig_matrix_tutorial</a> :</p>
+<p>To begin, we define a dictionary where the keys are the cell types we wish to consider, and the values are all the raw files that contain data for that cell type:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; cell_file_dict = {&#39;CD4&#39;: [&#39;GSE107011_Processed_data_TPM2.txt&#39;, &#39;ensembl_version_GSE97861.txt&#39;, &#39;ensembl_version_GSE97862.txt&#39;, \
+                              &#39;ensembl_version_GSE113891.txt&#39;, &#39;ensembl_version_GSE114407.txt&#39;, &#39;ensembl_version_GSE115978.txt&#39;], \
+                              &#39;CD8&#39;: [&#39;ensembl_version_GSE98638.txt&#39;, &#39;ensembl_version_GSE114407.txt&#39;, &#39;GSE107011_Processed_data_TPM2.txt&#39;], \
+                              &#39;B_&#39;: [&#39;GSE107011_Processed_data_TPM2.txt&#39;, &#39;ensembl_version_GSE114407.txt&#39;, &#39;ensembl_version_GSE115978.txt&#39;], \
+                              &#39;mono&#39;: [&#39;ensembl_version_GSE114407.txt&#39;, &#39;GSE107011_Processed_data_TPM2.txt&#39;], \
+                              &#39;NK&#39;: [&#39;GSE107011_Processed_data_TPM2.txt&#39;, &#39;ensembl_version_GSE115978.txt&#39;], \
+                              &#39;Endo&#39;: [&#39;ensembl_version_GSE102767.txt&#39;, &#39;ensembl_version_GSE113839.txt&#39;, &#39;ensembl_version_GSE115978.txt&#39;], \
+                              &#39;Fibro&#39;: [&#39;ensembl_version_GSE113839.txt&#39;, &#39;GSE109448_rnaseq_gene_tpm.tsv&#39;, &#39;GSE109449_singlecell_rnaseq_gene_tpm.txt&#39;], \
+                              &#39;Neutro&#39;: [&#39;GSE107011_Processed_data_TPM2.txt&#39;]}
+</pre></div>
+</div>
+<p>Next, remove batch effects with the <code class="docutils literal notranslate"><span class="pre">batch_correct_datasets()</span></code> function. In the following example, we have saved all the GEO files to “datafolder” and we wish to save the batch corrected data under the name “batch_corrected_sample_data.txt”:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; td.batch_correct_datasets(&quot;datafolder&quot;, cell_file_dict, outfile=&quot;batch_corrected_sample_data.txt&quot;)
+Performing batch correction...
+Found 6 batches.
+Adjusting for 0 covariate(s) or covariate level(s).
+Standardizing Data across genes.
+Fitting L/S model and finding priors.
+Finding parametric adjustments.
+Adjusting the Data
+Found 3 batches.
+Adjusting for 0 covariate(s) or covariate level(s).
+Standardizing Data across genes.
+Fitting L/S model and finding priors.
+Finding parametric adjustments.
+Adjusting the Data
+
+[ ... output truncated for space ... ]
+
+Found 3 batches.
+Adjusting for 0 covariate(s) or covariate level(s).
+Standardizing Data across genes.
+Fitting L/S model and finding priors.
+Finding parametric adjustments.
+Adjusting the Data
+Saving batch corrected datasets to batch_corrected_sample_data.txt...
+</pre></div>
+</div>
+<p>Once batch effects are removed, use the data to create a signature matrix:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; cell_types_to_include = [&quot;CD8&quot;, &quot;CD4&quot;, &quot;B_cell&quot;, &quot;NK&quot;, &quot;mono&quot;, &quot;Endothelial&quot;, &quot;Fibroblast&quot;, &quot;Neutrophils&quot;]
+&gt;&gt;&gt; td.create_signature_matrix(&quot;batch_corrected_sample_data.txt&quot;, cell_types_to_include, outfile=&quot;kmeans_signature_matrix_qval.txt&quot;)
+Reading batch-corrected dataset file batch_corrected_sample_data.txt...
+Clustering batch-corrected datasets...
+CD8: Finding optimal K for K-means (max # of clusters = 10)
+Optimal K = 2
+CD4: Finding optimal K for K-means (max # of clusters = 10)
+Optimal K = 2
+B_cell: Finding optimal K for K-means (max # of clusters = 10)
+Optimal K = 2
+NK: Finding optimal K for K-means (max # of clusters = 10)
+Optimal K = 2
+mono: Finding optimal K for K-means (max # of clusters = 10)
+Optimal K = 2
+Endothelial: Finding optimal K for K-means (max # of clusters = 10)
+Optimal K = 2
+Fibroblast: Finding optimal K for K-means (max # of clusters = 10)
+Optimal K = 2
+Neutrophils: Finding optimal K for K-means (max # of clusters = 10)
+Optimal K = 2
+Saving clustered data sets to batch_corrected_sample_data_clustered.txt...
+Generating signature matrix from clustered batch-corrected datasets...
+Saving signature matrix to kmeans_signature_matrix_qval.txt...
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">create_signature_matrix()</span></code> function expects a non-clustered data file as input. However, if your datafile is large, running these two processes (clustering &amp; generation of signature matrix) in sequence can take a very long time, or you may run into memory issues. To avoid this, you can also input an already-clustered data file (saved as an intermediate step in a previous run), and include the argument <code class="docutils literal notranslate"><span class="pre">clustered=True</span></code>, in order to skip the clustering step:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; td.create_signature_matrix(&quot;batch_corrected_sample_data_clustered.txt&quot;, cell_types_to_include, clustered=True, outfile=&quot;kmeans_signature_matrix_qval_2.txt&quot;)
+Reading batch-corrected dataset file batch_corrected_sample_data_clustered.txt...
+Generating signature matrix from clustered batch-corrected datasets...
+Saving signature matrix to kmeans_signature_matrix_qval_2.txt...
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="digital-cytometry.html" class="btn btn-neutral float-right" title="Running Digital Cytometry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="data-input.html" class="btn btn-neutral float-left" title="Data Inputs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Shahriyari Lab
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Quickstart &mdash; TumorDecon  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Inputs" href="data-input.html" />
+    <link rel="prev" title="About TumorDecon" href="about.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> TumorDecon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About TumorDecon</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tutorial">Tutorial</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Usage:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data-input.html">Data Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sigmatrix.html">Signature Matrix Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digital-cytometry.html">Running Digital Cytometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualization.html">Post-processing &amp; Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TumorDecon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Quickstart</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>To install the software with pip, use the following two commands:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>pip install TumorDecon
+pip install git+https://github.com/kristyhoran/singscore
+</pre></div>
+</div>
+<p>To load the module into python, use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">TumorDecon</span> <span class="k">as</span> <span class="nn">td</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<p>Here we provide a basic tutorial for importing a dataset and running each of the 4 methods provided in TumorDecon:</p>
+<p><strong>Step 1:</strong> Read in gene expression profiles. Profiles can either be downloaded directly from cBioPortal or UCSC Xena, or loaded in from a local CSV file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Location of sample data (included with the TumorDecon package):</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">data_loc</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">get_td_Home</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;data/&quot;</span>
+<span class="c1"># Read in sample data (original source - Colorectal Adenocarcinoma RNA Seq v2 from cBioPortal.org):</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">rna</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">read_rna_file</span><span class="p">(</span><span class="n">data_loc</span><span class="o">+</span><span class="s1">&#39;coadred_data_RNA_Seq_v2_expression_median.txt&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">rna</span><span class="p">)</span>
+             <span class="n">TCGA</span><span class="o">-</span><span class="mi">3</span><span class="n">L</span><span class="o">-</span><span class="n">AA1B</span><span class="o">-</span><span class="mi">01</span>  <span class="n">TCGA</span><span class="o">-</span><span class="mi">4</span><span class="n">N</span><span class="o">-</span><span class="n">A93T</span><span class="o">-</span><span class="mi">01</span>  <span class="n">TCGA</span><span class="o">-</span><span class="mi">4</span><span class="n">T</span><span class="o">-</span><span class="n">AA8H</span><span class="o">-</span><span class="mi">01</span>  <span class="o">...</span>  <span class="n">TCGA</span><span class="o">-</span><span class="n">AG</span><span class="o">-</span><span class="n">A02N</span><span class="o">-</span><span class="mi">01</span>  <span class="n">TCGA</span><span class="o">-</span><span class="n">AG</span><span class="o">-</span><span class="n">A02X</span><span class="o">-</span><span class="mi">01</span>  <span class="n">TCGA</span><span class="o">-</span><span class="n">AG</span><span class="o">-</span><span class="n">A032</span><span class="o">-</span><span class="mi">01</span>
+<span class="n">Hugo_Symbol</span>                                                     <span class="o">...</span>
+<span class="n">A1BG</span>                 <span class="mf">22.1470</span>         <span class="mf">171.2680</span>          <span class="mf">20.9980</span>  <span class="o">...</span>         <span class="mf">6.936515</span>        <span class="mf">16.165630</span>        <span class="mf">22.836611</span>
+<span class="n">A1CF</span>                <span class="mf">220.9870</span>         <span class="mf">100.6290</span>         <span class="mf">174.0080</span>  <span class="o">...</span>       <span class="mf">174.525498</span>       <span class="mf">191.864642</span>       <span class="mf">159.905526</span>
+<span class="n">A2BP1</span>                 <span class="mf">2.4178</span>          <span class="mf">10.1597</span>           <span class="mf">0.7311</span>  <span class="o">...</span>         <span class="mf">1.183092</span>        <span class="mf">75.017749</span>        <span class="mf">23.387740</span>
+<span class="n">A2LD1</span>               <span class="mf">177.4080</span>         <span class="mf">371.3640</span>         <span class="mf">295.6750</span>  <span class="o">...</span>       <span class="mf">111.407100</span>        <span class="mf">70.135640</span>       <span class="mf">141.760142</span>
+<span class="n">A2M</span>               <span class="mf">15911.5000</span>        <span class="mf">1494.3300</span>        <span class="mf">1333.5700</span>  <span class="o">...</span>      <span class="mf">2198.884111</span>      <span class="mf">1163.266249</span>      <span class="mf">2785.679374</span>
+<span class="o">...</span>                      <span class="o">...</span>              <span class="o">...</span>              <span class="o">...</span>  <span class="o">...</span>              <span class="o">...</span>              <span class="o">...</span>              <span class="o">...</span>
+<span class="n">ZYG11A</span>                <span class="mf">3.3849</span>           <span class="mf">0.4838</span>           <span class="mf">0.0000</span>  <span class="o">...</span>         <span class="mf">0.265865</span>        <span class="o">-</span><span class="mf">0.402069</span>         <span class="mf">0.898260</span>
+<span class="n">ZYG11B</span>              <span class="mf">543.0370</span>         <span class="mf">290.7600</span>         <span class="mf">669.7130</span>  <span class="o">...</span>       <span class="mf">914.956269</span>       <span class="mf">544.076931</span>       <span class="mf">685.383167</span>
+<span class="n">ZYX</span>                <span class="mf">6259.1900</span>        <span class="mf">4653.1200</span>        <span class="mf">4460.6100</span>  <span class="o">...</span>      <span class="mf">2768.765832</span>      <span class="mf">5001.453757</span>      <span class="mf">4643.428584</span>
+<span class="n">ZZEF1</span>              <span class="mf">1358.3200</span>        <span class="mf">1220.1300</span>        <span class="mf">3002.0100</span>  <span class="o">...</span>      <span class="mf">1151.317795</span>      <span class="mf">1822.211921</span>      <span class="mf">2125.966458</span>
+<span class="n">ZZZ3</span>                <span class="mf">798.3560</span>         <span class="mf">333.8170</span>         <span class="mf">530.0680</span>  <span class="o">...</span>       <span class="mf">996.284836</span>       <span class="mf">735.466401</span>       <span class="mf">343.951649</span>
+
+<span class="p">[</span><span class="mi">17493</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">592</span> <span class="n">columns</span><span class="p">]</span>
+
+<span class="c1"># Can alternatively download additional data sets directly from cBioPortal, and fetch any missing Hugo Symbols from NCBI website:</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">rna_cbio</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">download_by_name</span><span class="p">(</span><span class="s1">&#39;cbio&#39;</span><span class="p">,</span> <span class="s1">&#39;Colorectal Adenocarcinoma&#39;</span><span class="p">,</span> <span class="n">fetch_missing_hugo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Downloading</span> <span class="n">data</span> <span class="kn">from</span> <span class="nn">cbioportal</span> <span class="n">to</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">RachelAronow</span><span class="o">/</span><span class="n">testenv</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">TumorDecon</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">downloaded</span><span class="o">//</span><span class="n">coadread_tcga_pan_can_atlas_2018</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span><span class="o">...</span>
+<span class="mi">100</span><span class="o">%</span> <span class="p">[</span><span class="o">......................................................................</span><span class="p">]</span> <span class="mi">221792847</span> <span class="o">/</span> <span class="mi">221792847</span>
+<span class="n">Fetching</span> <span class="n">missing</span> <span class="n">Hugo</span> <span class="n">Symbols</span> <span class="k">for</span> <span class="n">genes</span> <span class="n">by</span> <span class="n">Entrez</span> <span class="n">ID</span><span class="o">...</span>
+<span class="n">Found</span>  <span class="mi">1</span> <span class="o">/</span> <span class="mi">13</span> <span class="n">of</span> <span class="n">the</span> <span class="n">missing</span> <span class="n">values</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">rna_cbio</span><span class="p">)</span>
+             <span class="n">TCGA</span><span class="o">-</span><span class="mi">3</span><span class="n">L</span><span class="o">-</span><span class="n">AA1B</span><span class="o">-</span><span class="mi">01</span>  <span class="n">TCGA</span><span class="o">-</span><span class="mi">4</span><span class="n">N</span><span class="o">-</span><span class="n">A93T</span><span class="o">-</span><span class="mi">01</span>  <span class="n">TCGA</span><span class="o">-</span><span class="mi">4</span><span class="n">T</span><span class="o">-</span><span class="n">AA8H</span><span class="o">-</span><span class="mi">01</span>  <span class="o">...</span>  <span class="n">TCGA</span><span class="o">-</span><span class="n">AG</span><span class="o">-</span><span class="n">A02N</span><span class="o">-</span><span class="mi">01</span>  <span class="n">TCGA</span><span class="o">-</span><span class="n">AG</span><span class="o">-</span><span class="n">A02X</span><span class="o">-</span><span class="mi">01</span>  <span class="n">TCGA</span><span class="o">-</span><span class="n">AG</span><span class="o">-</span><span class="n">A032</span><span class="o">-</span><span class="mi">01</span>
+<span class="n">Hugo_Symbol</span>                                                     <span class="o">...</span>
+<span class="n">UBE2Q2P2</span>             <span class="mf">15.7640</span>           <span class="mf">4.2767</span>          <span class="mf">11.3032</span>  <span class="o">...</span>         <span class="mf">2.815511</span>         <span class="mf">5.598328</span>        <span class="mf">13.724609</span>
+<span class="n">HMGB1P1</span>             <span class="mf">144.4000</span>         <span class="mf">142.6610</span>         <span class="mf">143.1990</span>  <span class="o">...</span>       <span class="mf">333.491605</span>       <span class="mf">373.021521</span>       <span class="mf">409.240194</span>
+<span class="n">LOC155060</span>           <span class="mf">441.9730</span>         <span class="mf">522.0130</span>         <span class="mf">288.0640</span>  <span class="o">...</span>       <span class="mf">138.619145</span>       <span class="mf">170.620655</span>       <span class="mf">301.792311</span>
+<span class="n">EFCAB8</span>                <span class="mf">2.4178</span>           <span class="mf">2.4190</span>           <span class="mf">2.9245</span>  <span class="o">...</span>         <span class="mf">0.866737</span>         <span class="mf">2.568721</span>         <span class="mf">1.408164</span>
+<span class="n">SRP14P1</span>               <span class="mf">2.9014</span>           <span class="mf">2.9028</span>           <span class="mf">3.6556</span>  <span class="o">...</span>         <span class="mf">9.461217</span>         <span class="mf">3.138180</span>         <span class="mf">6.967566</span>
+<span class="o">...</span>                      <span class="o">...</span>              <span class="o">...</span>              <span class="o">...</span>  <span class="o">...</span>              <span class="o">...</span>              <span class="o">...</span>              <span class="o">...</span>
+<span class="n">ZYG11A</span>                <span class="mf">3.3849</span>           <span class="mf">0.4838</span>           <span class="mf">0.0000</span>  <span class="o">...</span>         <span class="mf">0.265865</span>        <span class="o">-</span><span class="mf">0.402069</span>         <span class="mf">0.898260</span>
+<span class="n">ZYG11B</span>              <span class="mf">543.0370</span>         <span class="mf">290.7600</span>         <span class="mf">669.7130</span>  <span class="o">...</span>       <span class="mf">914.956269</span>       <span class="mf">544.076931</span>       <span class="mf">685.383167</span>
+<span class="n">ZYX</span>                <span class="mf">6259.1900</span>        <span class="mf">4653.1200</span>        <span class="mf">4460.6100</span>  <span class="o">...</span>      <span class="mf">2768.765832</span>      <span class="mf">5001.453757</span>      <span class="mf">4643.428584</span>
+<span class="n">ZZEF1</span>              <span class="mf">1358.3200</span>        <span class="mf">1220.1300</span>        <span class="mf">3002.0100</span>  <span class="o">...</span>      <span class="mf">1151.317795</span>      <span class="mf">1822.211921</span>      <span class="mf">2125.966458</span>
+<span class="n">ZZZ3</span>                <span class="mf">798.3560</span>         <span class="mf">333.8170</span>         <span class="mf">530.0680</span>  <span class="o">...</span>       <span class="mf">996.284836</span>       <span class="mf">735.466401</span>       <span class="mf">343.951649</span>
+
+<span class="p">[</span><span class="mi">17498</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">592</span> <span class="n">columns</span><span class="p">]</span>
+
+<span class="c1"># Or from UCSC Xena:</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">rna_xena</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">download_by_name</span><span class="p">(</span><span class="s1">&#39;xena&#39;</span><span class="p">,</span> <span class="s1">&#39;Colon and Rectal Cancer&#39;</span><span class="p">)</span>
+<span class="n">Downloading</span> <span class="n">data</span> <span class="kn">from</span> <span class="nn">Xena</span> <span class="n">Hub</span> <span class="n">to</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">RachelAronow</span><span class="o">/</span><span class="n">testenv</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">TumorDecon</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">downloaded</span><span class="o">//</span><span class="n">HiSeqV2</span><span class="o">.</span><span class="n">gz</span><span class="o">...</span>
+<span class="mi">100</span><span class="o">%</span> <span class="p">[</span><span class="o">........................................................................</span><span class="p">]</span> <span class="mi">23048575</span> <span class="o">/</span> <span class="mi">23048575</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">rna_xena</span><span class="p">)</span>
+             <span class="n">TCGA</span><span class="o">-</span><span class="n">CA</span><span class="o">-</span><span class="mi">5256</span><span class="o">-</span><span class="mi">01</span>  <span class="n">TCGA</span><span class="o">-</span><span class="n">AZ</span><span class="o">-</span><span class="mi">6599</span><span class="o">-</span><span class="mi">01</span>  <span class="n">TCGA</span><span class="o">-</span><span class="n">AA</span><span class="o">-</span><span class="mi">3655</span><span class="o">-</span><span class="mi">01</span>  <span class="o">...</span>  <span class="n">TCGA</span><span class="o">-</span><span class="n">AF</span><span class="o">-</span><span class="n">A56K</span><span class="o">-</span><span class="mi">01</span>  <span class="n">TCGA</span><span class="o">-</span><span class="n">DC</span><span class="o">-</span><span class="mi">6154</span><span class="o">-</span><span class="mi">01</span>  <span class="n">TCGA</span><span class="o">-</span><span class="n">AG</span><span class="o">-</span><span class="mi">3592</span><span class="o">-</span><span class="mi">01</span>
+<span class="n">Hugo_Symbol</span>                                                     <span class="o">...</span>
+<span class="n">ARHGEF10L</span>        <span class="mf">1144.371583</span>      <span class="mf">2226.484998</span>      <span class="mf">2082.076345</span>  <span class="o">...</span>      <span class="mf">1685.246812</span>      <span class="mf">2598.827162</span>      <span class="mf">1751.623022</span>
+<span class="n">HIF3A</span>              <span class="mf">12.151906</span>         <span class="mf">4.076028</span>         <span class="mf">3.245104</span>  <span class="o">...</span>       <span class="mf">104.595167</span>        <span class="mf">67.693420</span>        <span class="mf">33.003233</span>
+<span class="n">RNF17</span>               <span class="mf">0.000000</span>         <span class="mf">0.000000</span>         <span class="mf">0.463578</span>  <span class="o">...</span>         <span class="mf">0.000000</span>         <span class="mf">0.000000</span>         <span class="mf">0.000000</span>
+<span class="n">RNF10</span>            <span class="mf">1432.871476</span>      <span class="mf">3297.970130</span>      <span class="mf">2907.783085</span>  <span class="o">...</span>      <span class="mf">2209.719087</span>      <span class="mf">3005.355704</span>      <span class="mf">2588.575669</span>
+<span class="n">RNF11</span>            <span class="mf">1463.000164</span>      <span class="mf">1334.347953</span>       <span class="mf">976.802985</span>  <span class="o">...</span>       <span class="mf">778.173067</span>       <span class="mf">856.623127</span>       <span class="mf">619.978711</span>
+<span class="o">...</span>                      <span class="o">...</span>              <span class="o">...</span>              <span class="o">...</span>  <span class="o">...</span>              <span class="o">...</span>              <span class="o">...</span>              <span class="o">...</span>
+<span class="n">PTRF</span>              <span class="mf">712.712881</span>       <span class="mf">486.041197</span>      <span class="mf">1630.066627</span>  <span class="o">...</span>      <span class="mf">5007.628873</span>      <span class="mf">2691.256217</span>      <span class="mf">1859.016882</span>
+<span class="n">BCL6B</span>              <span class="mf">53.360997</span>        <span class="mf">28.531853</span>       <span class="mf">129.345774</span>  <span class="o">...</span>       <span class="mf">393.587105</span>       <span class="mf">237.575155</span>       <span class="mf">132.333917</span>
+<span class="n">GSTK1</span>            <span class="mf">6002.965618</span>      <span class="mf">3106.847504</span>      <span class="mf">5442.428906</span>  <span class="o">...</span>      <span class="mf">2451.776390</span>      <span class="mf">3604.041120</span>      <span class="mf">4599.898773</span>
+<span class="n">SELP</span>               <span class="mf">14.265469</span>        <span class="mf">16.813511</span>        <span class="mf">64.439962</span>  <span class="o">...</span>       <span class="mf">108.205371</span>        <span class="mf">36.614057</span>        <span class="mf">74.656913</span>
+<span class="n">SELS</span>             <span class="mf">1901.525401</span>      <span class="mf">1535.572368</span>      <span class="mf">1308.772019</span>  <span class="o">...</span>      <span class="mf">1163.181273</span>      <span class="mf">1722.588903</span>      <span class="mf">1359.197095</span>
+
+<span class="p">[</span><span class="mi">20530</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">434</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Step 2-A:</strong> Running Linear Methods (cibersort and DeconRNASeq)</p>
+<p>Linear methods require a signature matrix, and output cell fractions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># read in LM22 file (the default) as the signature matrix</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sig</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">read_sig_file</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span>
+             <span class="n">B</span> <span class="n">cells</span> <span class="n">naive</span>  <span class="n">B</span> <span class="n">cells</span> <span class="n">memory</span>  <span class="n">Plasma</span> <span class="n">cells</span>  <span class="o">...</span>  <span class="n">Mast</span> <span class="n">cells</span> <span class="n">activated</span>  <span class="n">Eosinophils</span>  <span class="n">Neutrophils</span>
+<span class="n">Hugo_Symbol</span>                                               <span class="o">...</span>
+<span class="n">ABCB4</span>           <span class="mf">555.713449</span>       <span class="mf">10.744235</span>      <span class="mf">7.225819</span>  <span class="o">...</span>             <span class="mf">34.113659</span>    <span class="mf">15.030530</span>    <span class="mf">14.906888</span>
+<span class="n">ABCB9</span>            <span class="mf">15.603544</span>       <span class="mf">22.094787</span>    <span class="mf">653.392328</span>  <span class="o">...</span>             <span class="mf">23.615746</span>    <span class="mf">29.786442</span>    <span class="mf">33.679147</span>
+<span class="n">ACAP1</span>           <span class="mf">215.305951</span>      <span class="mf">321.621021</span>     <span class="mf">38.616872</span>  <span class="o">...</span>             <span class="mf">73.607932</span>   <span class="mf">696.442802</span>   <span class="mf">596.025961</span>
+<span class="n">ACHE</span>             <span class="mf">15.117949</span>       <span class="mf">16.648847</span>     <span class="mf">22.123737</span>  <span class="o">...</span>             <span class="mf">20.501249</span>    <span class="mf">40.414927</span>    <span class="mf">22.766494</span>
+<span class="n">ACP5</span>            <span class="mf">605.897384</span>     <span class="mf">1935.201479</span>   <span class="mf">1120.104684</span>  <span class="o">...</span>            <span class="mf">323.381277</span>   <span class="mf">860.563374</span>   <span class="mf">307.142798</span>
+<span class="o">...</span>                    <span class="o">...</span>             <span class="o">...</span>           <span class="o">...</span>  <span class="o">...</span>                   <span class="o">...</span>          <span class="o">...</span>          <span class="o">...</span>
+<span class="n">ZNF204P</span>          <span class="mf">77.876897</span>       <span class="mf">42.946213</span>     <span class="mf">41.075062</span>  <span class="o">...</span>             <span class="mf">25.206700</span>    <span class="mf">65.487837</span>    <span class="mf">27.485546</span>
+<span class="n">ZNF222</span>            <span class="mf">9.800664</span>        <span class="mf">7.203218</span>     <span class="mf">11.691368</span>  <span class="o">...</span>            <span class="mf">211.493742</span>   <span class="mf">346.556451</span>    <span class="mf">26.825597</span>
+<span class="n">ZNF286A</span>         <span class="mf">737.859904</span>      <span class="mf">331.908761</span>     <span class="mf">73.882022</span>  <span class="o">...</span>             <span class="mf">25.833293</span>     <span class="mf">7.473171</span>   <span class="mf">441.313469</span>
+<span class="n">ZNF324</span>           <span class="mf">28.211994</span>       <span class="mf">23.464424</span>     <span class="mf">21.173326</span>  <span class="o">...</span>             <span class="mf">45.775175</span>    <span class="mf">35.293284</span>    <span class="mf">35.424698</span>
+<span class="n">ZNF442</span>           <span class="mf">19.713197</span>       <span class="mf">22.447533</span>     <span class="mf">19.391583</span>  <span class="o">...</span>              <span class="mf">3.646156</span>    <span class="mf">40.296509</span>    <span class="mf">20.157522</span>
+
+<span class="p">[</span><span class="mi">547</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">22</span> <span class="n">columns</span><span class="p">]</span>
+
+<span class="c1"># Can also use a custom signature matrix, such as the example &quot;kmeans_signature_matrix_qval.txt&quot; from the Signature Matrix tutorial.</span>
+<span class="c1"># Note this signature matrix uses Ensembl Gene IDs instead of Hugo Symbols - specify this in order to have them converted to Hugo Symbols</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">custom_sig</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">read_sig_file</span><span class="p">(</span><span class="n">td</span><span class="o">.</span><span class="n">get_td_Home</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;data/kmeans_signature_matrix_qval.txt&#39;</span><span class="p">,</span> <span class="n">geneID</span><span class="o">=</span><span class="s1">&#39;Ensembl_Gene_ID&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">custom_sig</span><span class="p">)</span>
+             <span class="n">CD8_subtype_1</span>  <span class="n">CD8_subtype_2</span>  <span class="n">CD4_subtype_1</span>  <span class="o">...</span>  <span class="n">Fibroblast_subtype_2</span>  <span class="n">Neutrophils_subtype_1</span>  <span class="n">Neutrophils_subtype_2</span>
+<span class="n">Hugo_Symbol</span>                                               <span class="o">...</span>
+<span class="n">FGR</span>             <span class="mf">116.000139</span>      <span class="mf">24.380169</span>       <span class="mf">8.453629</span>  <span class="o">...</span>              <span class="mf">5.412057</span>             <span class="mf">558.770835</span>             <span class="mf">739.358363</span>
+<span class="n">NFYA</span>             <span class="mf">22.503403</span>       <span class="mf">0.752393</span>      <span class="mf">15.056201</span>  <span class="o">...</span>              <span class="mf">2.073508</span>              <span class="mf">46.759730</span>              <span class="mf">37.213350</span>
+<span class="n">LASP1</span>           <span class="mf">154.161176</span>      <span class="mf">36.456214</span>     <span class="mf">110.461637</span>  <span class="o">...</span>             <span class="mf">10.793872</span>             <span class="mf">259.252004</span>             <span class="mf">250.373201</span>
+<span class="n">TSR3</span>             <span class="mf">39.389183</span>      <span class="mf">48.998150</span>      <span class="mf">16.131921</span>  <span class="o">...</span>              <span class="mf">0.371443</span>               <span class="mf">2.038300</span>               <span class="mf">3.715013</span>
+<span class="n">NADK</span>             <span class="mf">16.429699</span>      <span class="mf">12.887361</span>       <span class="mf">9.760582</span>  <span class="o">...</span>              <span class="mf">1.503814</span>             <span class="mf">871.354356</span>            <span class="mf">1006.496017</span>
+<span class="o">...</span>                    <span class="o">...</span>            <span class="o">...</span>            <span class="o">...</span>  <span class="o">...</span>                   <span class="o">...</span>                    <span class="o">...</span>                    <span class="o">...</span>
+<span class="n">TRBJ1</span><span class="o">-</span><span class="mi">3</span>         <span class="mf">239.011558</span>     <span class="mf">239.012712</span>     <span class="mf">281.496628</span>  <span class="o">...</span>              <span class="mf">0.898271</span>               <span class="mf">0.000000</span>               <span class="mf">0.000000</span>
+<span class="n">TRBJ1</span><span class="o">-</span><span class="mi">5</span>         <span class="mf">607.825543</span>     <span class="mf">607.828500</span>     <span class="mf">734.535240</span>  <span class="o">...</span>              <span class="mf">1.117383</span>               <span class="mf">0.000000</span>               <span class="mf">0.000000</span>
+<span class="n">TRBJ1</span><span class="o">-</span><span class="mi">1</span>         <span class="mf">379.176464</span>     <span class="mf">379.177563</span>     <span class="mf">378.034351</span>  <span class="o">...</span>              <span class="mf">2.021114</span>               <span class="mf">0.000000</span>               <span class="mf">0.000000</span>
+<span class="n">LINC01002</span>         <span class="mf">0.673294</span>       <span class="mf">0.928260</span>      <span class="mf">12.979473</span>  <span class="o">...</span>              <span class="mf">5.542829</span>            <span class="mf">1121.606395</span>            <span class="mf">1058.730521</span>
+<span class="n">MIR1248</span>         <span class="mf">925.340683</span>     <span class="mf">925.015091</span>      <span class="mf">49.996583</span>  <span class="o">...</span>              <span class="mf">1.854341</span>               <span class="mf">0.000000</span>               <span class="mf">0.000000</span>
+
+<span class="p">[</span><span class="mi">972</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">16</span> <span class="n">columns</span><span class="p">]</span>
+
+<span class="c1"># Run cibersort method on ALL patients:</span>
+<span class="c1"># optional argments include:</span>
+<span class="c1">#    &#39;scaling&#39;: how to scale the data (rna mixture &amp; signature matrix) before applying Cibersort (must be either &#39;None&#39;, &#39;zscore&#39;, or &#39;minmax&#39;)</span>
+<span class="c1">#    &#39;scaling_axis&#39;: whether to scale data by normalizing each cell types / patient individually (0) or each gene individually (1). default is 0</span>
+<span class="c1">#    &#39;nu&#39;,&#39;C&#39;,&#39;kernel&#39;: all arguments to be passed to sklearn&#39;s implementation of NuSVR. See sklearn documentation for details</span>
+<span class="c1">#       Additionally, can pass in &#39;nu&#39;:&#39;best&#39; to choose the nu from [0.25, 0.5, 0.75] that minimizes the root mean square error</span>
+<span class="c1">#       Defaults are nu=&#39;best&#39;, C=1.0, kernel=linear</span>
+<span class="c1">#   &#39;print_progress&#39;: whether to print patient ID as cibersort works through each patient (default: False)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ciber_freqs</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">tumor_deconvolve</span><span class="p">(</span><span class="n">rna</span><span class="p">,</span> <span class="s1">&#39;cibersort&#39;</span><span class="p">,</span>  <span class="n">patient_IDs</span><span class="o">=</span><span class="s1">&#39;ALL&#39;</span><span class="p">,</span> <span class="n">sig_matrix</span><span class="o">=</span><span class="n">sig</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;nu&#39;</span><span class="p">:</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="s1">&#39;scaling&#39;</span><span class="p">:</span><span class="s1">&#39;minmax&#39;</span><span class="p">})</span>
+<span class="go">Running CiberSort...</span>
+<span class="go">CiberSort has completed!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ciber_freqs</span><span class="p">)</span>
+<span class="go">Patient_ID       B cells naive  B cells memory  Plasma cells  ...  Mast cells activated  Eosinophils  Neutrophils</span>
+<span class="go">TCGA-3L-AA1B-01       0.076577        0.000000      0.019106  ...              0.066274     0.000000          0.0</span>
+<span class="go">TCGA-4N-A93T-01       0.004291        0.054434      0.045281  ...              0.185916     0.007008          0.0</span>
+<span class="go">TCGA-4T-AA8H-01       0.013573        0.000000      0.118549  ...              0.160762     0.033994          0.0</span>
+<span class="go">TCGA-5M-AAT4-01       0.000000        0.066355      0.000000  ...              0.266957     0.000000          0.0</span>
+<span class="go">TCGA-5M-AAT5-01       0.022618        0.000000      0.024259  ...              0.359011     0.021282          0.0</span>
+<span class="gp">... </span>                       <span class="o">...</span>             <span class="o">...</span>           <span class="o">...</span>  <span class="o">...</span>                   <span class="o">...</span>          <span class="o">...</span>          <span class="o">...</span>
+<span class="go">TCGA-AG-A026-01       0.000000        0.022986      0.003191  ...              0.253747     0.006140          0.0</span>
+<span class="go">TCGA-AG-A02G-01       0.021680        0.000175      0.000000  ...              0.169971     0.000374          0.0</span>
+<span class="go">TCGA-AG-A02N-01       0.016291        0.007369      0.004204  ...              0.179287     0.009278          0.0</span>
+<span class="go">TCGA-AG-A02X-01       0.005250        0.000000      0.003403  ...              0.181726     0.004704          0.0</span>
+<span class="go">TCGA-AG-A032-01       0.072213        0.000000      0.034568  ...              0.216468     0.009628          0.0</span>
+
+<span class="go">[592 rows x 22 columns]</span>
+
+<span class="go"># Save results to a file:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ciber_freqs</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;cibersort_results.csv&quot;</span><span class="p">,</span> <span class="n">index_label</span><span class="o">=</span><span class="s1">&#39;Patient_ID&#39;</span><span class="p">)</span>
+
+<span class="go"># Run DeconRNASeq:</span>
+<span class="go"># optional argments include:</span>
+<span class="go">#    &#39;scaling&#39;: Same as in cibersort</span>
+<span class="go">#    &#39;scaling_axis&#39;: Same as in cibersort</span>
+<span class="go">#    &#39;check_sig&#39;: whether to check the condition number of the signature matrix before solving (default: False)</span>
+<span class="go">#    &#39;print_progress&#39;: whether to print the results of each fit while function is running (default: False)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decon_freqs</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">tumor_deconvolve</span><span class="p">(</span><span class="n">rna</span><span class="p">,</span> <span class="s1">&#39;DeconRNASeq&#39;</span><span class="p">,</span>  <span class="n">patient_IDs</span><span class="o">=</span><span class="s1">&#39;ALL&#39;</span><span class="p">,</span> <span class="n">sig_matrix</span><span class="o">=</span><span class="n">sig</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;scaling&#39;</span><span class="p">:</span><span class="s1">&#39;minmax&#39;</span><span class="p">,</span> <span class="s1">&#39;print_progress&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">})</span>
+<span class="go">Running DeconRNASeq...</span>
+<span class="go">DeconRNASeq has completed!</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">decon_freqs</span><span class="p">)</span>
+<span class="go">Patient_ID       B cells naive  B cells memory  Plasma cells  ...  Mast cells activated   Eosinophils   Neutrophils</span>
+<span class="go">TCGA-3L-AA1B-01   2.582540e-02    0.000000e+00      0.165577  ...          3.088621e-17  0.000000e+00  3.234649e-17</span>
+<span class="go">TCGA-4N-A93T-01   2.305311e-02    1.298978e-16      0.141491  ...          0.000000e+00  5.750904e-18  1.934592e-17</span>
+<span class="go">TCGA-4T-AA8H-01   1.053894e-02    5.177404e-17      0.159989  ...          7.645319e-18  1.235998e-02  5.827587e-19</span>
+<span class="go">TCGA-5M-AAT4-01   5.394090e-17    1.991418e-02      0.109398  ...          3.574299e-17  4.039499e-17  2.120351e-17</span>
+<span class="go">TCGA-5M-AAT5-01   1.089422e-02    4.913046e-17      0.144355  ...          2.883490e-17  6.280517e-18  9.021213e-18</span>
+<span class="gp">... </span>                       <span class="o">...</span>             <span class="o">...</span>           <span class="o">...</span>  <span class="o">...</span>                   <span class="o">...</span>           <span class="o">...</span>           <span class="o">...</span>
+<span class="go">TCGA-AG-A026-01   2.113573e-02    1.137586e-17      0.141309  ...          1.324951e-17  1.269026e-18  5.087319e-17</span>
+<span class="go">TCGA-AG-A02G-01   1.517414e-02    0.000000e+00      0.131320  ...          0.000000e+00  2.747775e-18  1.425387e-17</span>
+<span class="go">TCGA-AG-A02N-01   2.555726e-02    6.160640e-17      0.130763  ...          0.000000e+00  0.000000e+00  3.678833e-17</span>
+<span class="go">TCGA-AG-A02X-01   2.959905e-02    5.615945e-18      0.182780  ...          1.647317e-17  4.197899e-18  1.486629e-17</span>
+<span class="go">TCGA-AG-A032-01   3.053816e-02    4.980554e-17      0.140349  ...          1.588356e-17  4.061692e-17  0.000000e+00</span>
+
+<span class="go">[592 rows x 22 columns]</span>
+</pre></div>
+</div>
+<p><strong>Step 2-B:</strong> Running Rank-Based Methods (ssGSEA and SingScore)</p>
+<p>Rank-based methods require a list of up-regulated genes, and output scores/ranks for each cell type:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in up-regulated gene set derived from LM22 (default):</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">up_geneset</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">read_geneset</span><span class="p">()</span>
+<span class="c1"># When running tumor_deconvolve(), the default is to apply the method on all patients in the rna data frame (patient_IDs=&#39;ALL&#39;).</span>
+<span class="c1"># To instead run the method on only a select list of patients, pass in a list of patient identifiers (column names)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">patient_subset</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TCGA-3L-AA1B-01&#39;</span><span class="p">,</span> <span class="s1">&#39;TCGA-4N-A93T-01&#39;</span><span class="p">,</span> <span class="s1">&#39;TCGA-4T-AA8H-01&#39;</span><span class="p">,</span> <span class="s1">&#39;TCGA-5M-AAT4-01&#39;</span><span class="p">,</span> \
+                    <span class="s1">&#39;TCGA-5M-AAT5-01&#39;</span><span class="p">,</span> <span class="s1">&#39;TCGA-5M-AAT6-01&#39;</span><span class="p">,</span> <span class="s1">&#39;TCGA-5M-AATA-01&#39;</span><span class="p">,</span> <span class="s1">&#39;TCGA-5M-AATE-01&#39;</span><span class="p">,</span> \
+                    <span class="s1">&#39;TCGA-A6-2675-01&#39;</span><span class="p">,</span> <span class="s1">&#39;TCGA-A6-2682-01&#39;</span><span class="p">,</span> <span class="s1">&#39;TCGA-A6-2684-01&#39;</span><span class="p">,</span> <span class="s1">&#39;TCGA-A6-2685-01&#39;</span><span class="p">]</span>
+
+<span class="c1"># Run ssGSEA on only a few patients:</span>
+<span class="c1"># optional arguments include:</span>
+<span class="c1">#   &#39;alpha&#39;: Weight used in ssGSEA method (default: 1.0)</span>
+<span class="c1">#   &#39;norm&#39;: whether to normalize enrichment scores, as done by Barbie et al., 2009, online methods, pg. 2</span>
+<span class="c1">#   &#39;print_progress&#39;: whether to print patient ID as ssGSEA iterates through (default: False)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ssgsea_scores</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">tumor_deconvolve</span><span class="p">(</span><span class="n">rna</span><span class="p">,</span> <span class="s1">&#39;ssGSEA&#39;</span><span class="p">,</span>  <span class="n">patient_IDs</span><span class="o">=</span><span class="n">patient_subset</span><span class="p">,</span> <span class="n">up_genes</span><span class="o">=</span><span class="n">up_geneset</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;norm&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;print_progress&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>Running ssGSEA...
+ssGSEA has completed!
+&gt;&gt;&gt; print(ssgsea_scores)
+Patient_ID       B cells naive  B cells memory  Plasma cells  ...  Mast cells activated  Eosinophils  Neutrophils
+TCGA-3L-AA1B-01       0.259867        0.194624      0.885539  ...              0.476357     0.487919     0.347988
+TCGA-4N-A93T-01       0.279005        0.085207      0.876560  ...              0.487487     0.507909     0.403473
+TCGA-4T-AA8H-01       0.229115        0.094173      0.872763  ...              0.440532     0.515211     0.398734
+TCGA-5M-AAT4-01       0.213934        0.146207      0.838287  ...              0.484334     0.478675     0.329150
+TCGA-5M-AAT5-01       0.226495        0.083503      0.887130  ...              0.570072     0.490234     0.360500
+TCGA-5M-AAT6-01       0.220341        0.196759      0.928414  ...              0.495182     0.551787     0.444604
+TCGA-5M-AATA-01       0.264451        0.242712      0.843088  ...              0.562232     0.517319     0.385985
+TCGA-5M-AATE-01       0.255101        0.159893      0.860415  ...              0.487739     0.502279     0.389226
+TCGA-A6-2675-01       0.239517        0.216401      0.880584  ...              0.442438     0.552197     0.480925
+TCGA-A6-2682-01       0.215060        0.159228      0.934567  ...              0.572144     0.557205     0.490885
+TCGA-A6-2684-01       0.200944        0.187249      0.888014  ...              0.466842     0.530049     0.442364
+TCGA-A6-2685-01       0.174148        0.183445      0.901240  ...              0.512232     0.559692     0.475958
+
+[12 rows x 22 columns]
+
+# SingScore can be run with just an up-regulated gene set (unidirectional):
+&gt;&gt;&gt; singscore_unidirectional = td.tumor_deconvolve(rna, &#39;singscore&#39;,  patient_IDs=patient_subset, up_genes=up_geneset)
+Running SingScore...
+SingScore has completed!
+&gt;&gt;&gt; print(singscore_unidirectional)
+                 B cells naive  B cells memory  Plasma cells  ...  Mast cells activated  Eosinophils  Neutrophils
+Patient_ID                                                    ...
+TCGA-3L-AA1B-01       0.043939        0.019919      0.390517  ...              0.143151     0.170208     0.057520
+TCGA-4N-A93T-01       0.042402       -0.018819      0.388269  ...              0.130023     0.159335     0.047293
+TCGA-4T-AA8H-01      -0.001167       -0.034557      0.383143  ...              0.121452     0.173807     0.054449
+TCGA-5M-AAT4-01      -0.000663       -0.034056      0.352491  ...              0.143960     0.147913     0.072633
+TCGA-5M-AAT5-01       0.001516       -0.026920      0.387989  ...              0.176622     0.160018     0.047570
+TCGA-5M-AAT6-01       0.033225        0.028672      0.410925  ...              0.153879     0.205684     0.129255
+TCGA-5M-AATA-01       0.023101        0.036137      0.361934  ...              0.177856     0.182411     0.094270
+TCGA-5M-AATE-01       0.028539       -0.005005      0.373973  ...              0.135569     0.170774     0.075416
+TCGA-A6-2675-01       0.024810        0.021903      0.382503  ...              0.141583     0.213163     0.167502
+TCGA-A6-2682-01      -0.001531       -0.011193      0.411903  ...              0.194219     0.203540     0.185292
+TCGA-A6-2684-01       0.011188        0.009044      0.387331  ...              0.149757     0.202112     0.137950
+TCGA-A6-2685-01       0.017267        0.014811      0.396467  ...              0.170028     0.221638     0.165198
+
+[12 rows x 22 columns]
+
+# or with both an up-regulated and down-regulated gene set (bidirectional):
+# Note we can derive up-regulated and down-regulated genes from an existing signature matrix, such as LM6:
+&gt;&gt;&gt; LM6 = td.read_sig_file(data_loc+&#39;LM6.txt&#39;)
+&gt;&gt;&gt; up_geneset_LM6, down_geneset_LM6 = td.find_up_down_genes_from_sig(LM6, down_cutoff=0.4, up_cutoff=4.0)
+&gt;&gt;&gt; singscore_bidirectional = td.tumor_deconvolve(rna, &#39;singscore&#39;,  patient_IDs=patient_subset, up_genes=up_geneset_LM6, down_genes=down_geneset_LM6)
+Running SingScore...
+SingScore has completed!
+&gt;&gt;&gt; print(singscore_bidirectional)
+                  B cells  CD8 T cells  CD4 T cells  NK cells  Monocytes  Neutrophils
+Patient_ID
+TCGA-3L-AA1B-01  0.499283     0.498565     0.499251  0.497644   0.498842     0.498363
+TCGA-4N-A93T-01  0.497755     0.496919     0.497468  0.494885   0.495496     0.494552
+TCGA-4T-AA8H-01  0.491771     0.493391     0.495615  0.491519   0.493491     0.491843
+TCGA-5M-AAT4-01  0.495321     0.496566     0.497346  0.495163   0.498167     0.497388
+TCGA-5M-AAT5-01  0.495463     0.495565     0.497145  0.494091   0.495991     0.494845
+TCGA-5M-AAT6-01  0.498709     0.498768     0.498831  0.498318   0.499212     0.498525
+TCGA-5M-AATA-01  0.497041     0.498285     0.498800  0.497634   0.498982     0.498472
+TCGA-5M-AATE-01  0.495452     0.495420     0.497194  0.493926   0.496085     0.494777
+TCGA-A6-2675-01  0.498108     0.498180     0.498828  0.497645   0.499401     0.498931
+TCGA-A6-2682-01  0.497307     0.497994     0.498878  0.497267   0.499530     0.499082
+TCGA-A6-2684-01  0.498561     0.498945     0.499311  0.498411   0.499402     0.498990
+TCGA-A6-2685-01  0.499290     0.499078     0.499545  0.498534   0.499574     0.499424
+</pre></div>
+</div>
+<p><strong>Step 3:</strong> Visualize Results (for LM22 cell types only).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select a subset of the patients to visualize:</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">results</span> <span class="o">=</span> <span class="n">ciber_freqs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">patient_subset</span><span class="p">]</span>
+<span class="c1"># Create and save plots:</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">td</span><span class="o">.</span><span class="n">cell_frequency_boxplot</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">save_as</span><span class="o">=</span><span class="s2">&quot;boxplots.png&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">td</span><span class="o">.</span><span class="n">cell_frequency_barchart</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">save_as</span><span class="o">=</span><span class="s2">&quot;barcharts.png&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">td</span><span class="o">.</span><span class="n">pair_plot</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">save_as</span><span class="o">=</span><span class="s2">&quot;pairplots.png&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">td</span><span class="o">.</span><span class="n">hierarchical_clustering</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">save_as</span><span class="o">=</span><span class="s2">&quot;clustermaps.png&quot;</span><span class="p">)</span>
+<span class="c1"># Each of the plots above use matplotlib and seaborn, and users can customize plot parameters as in these packages. For example:</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">td</span><span class="o">.</span><span class="n">cell_frequency_boxplot</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">font_scale</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">rcParams</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">)},</span> <span class="n">save_as</span><span class="o">=</span><span class="s2">&quot;customized-boxplot.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="data-input.html" class="btn btn-neutral float-right" title="Data Inputs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="about.html" class="btn btn-neutral float-left" title="About TumorDecon" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Shahriyari Lab
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
