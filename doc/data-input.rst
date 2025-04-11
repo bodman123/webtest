@@ -163,6 +163,6 @@ The following function provides a method for determining a list of up-regulated 
   >>> LM6 = td.read_sig_file('LM6.txt')
   >>> up_geneset_LM6, down_geneset_LM6 = td.find_up_down_genes_from_sig(LM6, down_cutoff=0.4, up_cutoff=4.0, show_plots=True)
 
-.. image:: subplots.png
+.. image:: ../_images/subplots.png
   :width: 800px
   :height: 400px
