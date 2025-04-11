@@ -31,7 +31,7 @@ TumorDecon provides functions for creating the following plots, for digital cyto
 
 >>> td.cell_frequency_boxplot(results, save_as="boxplots.png")
 
-.. image:: boxplots.png
+.. image:: ../_images/boxplots.png
   :width: 800px
   :height: 400px
 
@@ -55,7 +55,7 @@ TumorDecon provides functions for creating the following plots, for digital cyto
 
 >>> td.cell_frequency_barchart(results, save_as="barcharts.png")
 
-.. image:: barcharts.png
+.. image:: ../_images/barcharts.png
   :width: 800px
   :height: 400px
 
@@ -77,7 +77,7 @@ TumorDecon provides functions for creating the following plots, for digital cyto
 
 >>> td.pair_plot(results, save_as="pairplots.png")
 
-.. image:: pairplots.png
+.. image:: ../_image/spairplots.png
   :width: 700px
   :height: 700px
 
@@ -98,7 +98,7 @@ TumorDecon provides functions for creating the following plots, for digital cyto
 
 >>> td.hierarchical_clustering(results, save_as="clustermaps.png")
 
-.. image:: clustermaps.png
+.. image:: ../_images/clustermaps.png
   :width: 800px
   :height: 200px
 
